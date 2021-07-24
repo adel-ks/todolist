@@ -1,0 +1,32 @@
+{% extends '_base.html' %}
+{% block content %} 
+
+<body>
+<h1>Редактировать</h1>
+
+
+<form action="" method="POST">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Обновить"/>
+</form>
+<br/><br/>
+
+
+</body>
+
+</html>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if error %}
+{{ error }}
+{% endif %}
+
+{% endblock content %}
