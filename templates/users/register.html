@@ -1,0 +1,26 @@
+{% extends "_base.html" %}
+{% block content %}
+
+<div class="header-bar">
+    <h1>Новая учетная запись</h1>
+</div>
+
+<div class="card-body">
+	<form action="." method="POST">
+        {% csrf_token %}
+        <label>{{ user_form.username.label }}</label>
+        {{ user_form.username }}
+
+        <label>{{ user_form.password.label }}</label>
+        {{ user_form.password }}
+
+        <label>{{ user_form.confirm_password.label }}</label>
+        {{ user_form.confirm_password }}
+
+        <input style="margin-top: 10px;" class="button" type="submit" value="Создать">
+    </form>
+
+<p>Уже зарегистрированы?<a href="{% url 'login' %}">Войти</a></p>
+</div>
+
+{% endblock %}

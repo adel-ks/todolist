@@ -1,10 +1,9 @@
 from django.shortcuts import render
 from .models import *
 from .forms import *
-
 from django.contrib.auth.decorators import login_required
 
-@login_required
+@login_required(login_url='login')
 def task_list(request):
 	tasks = Task.objects.all()
 	context = {'tasks': tasks}
