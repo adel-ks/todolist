@@ -1,0 +1,39 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<div class="header-bar">
+
+    <h1>Войти</h1>
+    
+</div>
+
+<div class="card-body">
+    <form action="." method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="button" type="submit" value="Войти">
+    </form>
+    <p>Еще нет учетной записи?<a href="{% url 'register' %}">Регистрация</a></p>
+</div>
+
+
+<div class="mr-block">
+    <div class="social">
+    <ul>
+        <li class="facebook">
+            <a href="{% url 'social:begin' 'facebook' %}">Войти через Facebook</a>
+
+        </li>
+    </ul>
+    <ul>
+        </li class="'google">
+            <a href="{% url 'social:begin' 'google-oauth2' %}">Войти через Google</a>
+            <a type="button" class="btn btn-primary btn-sm" href="{% provider_login_url 'google' %}">Small button</a>
+        <li>
+    </ul>
+    
+</div>
+</div>
+	
+{% endblock %}

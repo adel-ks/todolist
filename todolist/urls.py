@@ -3,10 +3,6 @@ from .views import *
 
 
 urlpatterns = [
-	# path('login/', login, name='login'),
-	# path('logout/', logout, name='logout'),
-	# path('register/', register, name='register'),
-	# path('search_task/', search_task, name='search_task'),
 	path('',task_list, name='tasks'),
 	path('todolist/<id>/', task_detail, name='task'),
 	path('create', create_task, name='create_task'),
