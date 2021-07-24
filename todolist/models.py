@@ -9,18 +9,18 @@ def user_image_dir(instance, filename):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    photo = ResizedImageField(size=[100,100], upload_to=user_image_dir, blank=True, null=True)
-    is_status = models.BooleanField(default=False)
-    sum_todo = models.IntegerField(default=False, null=True, editable=False)
+	user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+	photo = ResizedImageField(size=[100,100], upload_to=user_image_dir, blank=True, null=True)
+	is_status = models.BooleanField(default=False)
+	sum_todo = models.IntegerField(default=False, null=True, editable=False)
 
-    def __str__(self):
-        return self.user
+	def __str__(self):
+		return self.user
 
-    def create_profile(sender, instance, created, **kwargs):
-    	if created:
-    		Profile.objects.create(user=instance)
-    		task_save.connect(create_profile, sender=User)
+	def create_profile(sender, instance, created, **kwargs):
+		if created:
+			Profile.objects.create(user=instance)
+			task_save.connect(create_profile, sender=User)
 
 
 class Category(models.Model):
@@ -39,7 +39,7 @@ class Task(models.Model):
 
 	profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 	title = models.CharField(max_length=200, verbose_name='Название')
-	category = models.ManyToManyField(Category, null=True)
+	category = models.ForeignKey(Category,on_delete=models.CASCADE, blank=True, null=True)
 	priority = models.PositiveSmallIntegerField(blank=False, choices=PRIORITY, default=3, verbose_name='Приоритет')
 	description = models.TextField(null=True, blank=True, verbose_name='Описание')
 	complete = models.BooleanField(default=False, verbose_name='Выполнено')
@@ -49,9 +49,10 @@ class Task(models.Model):
 	def __str__(self):
 		return self.title
 
-
 	def get_absolute_url(self):
 		return reverse('views.task_details', args=[str(self.id)])
+
+
 
 	def get_subcategories(self):
 		return self.subcategory_set.filter(parent__isnull=True)
@@ -62,6 +63,7 @@ class Task(models.Model):
 			self.profile.sum_todo +=1
 			self.profile.save()
 		super().save(*args, **kwargs)
+
 
 	def delete(self, *args, **kwargs):
 		super(Task, self).delete(*args, **kwargs)
