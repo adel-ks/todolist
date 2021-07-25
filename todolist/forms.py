@@ -23,7 +23,7 @@ class SubcategoryForm(forms.ModelForm):
 	class Meta:
 		model = Subcategory
 		fields = [
-			'text',
+			'name',
 			'category',
 			'task',
 			'parent',

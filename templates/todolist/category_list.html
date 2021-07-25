@@ -1,0 +1,15 @@
+{% extends '_base.html' %}
+{% block content %}
+
+<div class="header-bar">
+	<div>
+		<h1>Список категорий</h1>
+		
+	</div>
+
+	<div class="category-wrapper">
+	{% for category in categories %}
+		{{category.name}}
+	{% endfor %}
+	</div>
+</div>

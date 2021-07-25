@@ -1,0 +1,21 @@
+{% extends "_base.html" %}
+{% block title %}
+	Перейти на другой тариф
+{% endblock title %}
+
+{% block content %}
+
+<div class="header-bar">
+  <a href="{% url 'task_list' %}">&#8592; Назад</a>
+  
+</div>
+
+<div class="card-body">
+  <h3>тариф PRO</h3>
+  <form action="{% url 'change_tarif' user.id %}">
+    
+    <button class="button" type="submit">Перейти</button>
+  </form>
+</div>
+
+{% endblock  %}

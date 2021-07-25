@@ -9,8 +9,6 @@ from .forms import LoginForm, UserRegistrationForm, UserEditForm, ProfileEditFor
 
 
 
-
-@login_required
 def register(request):
 	if request.method == 'POST':
 		user_form = UserRegistrationForm(request.POST or None)
@@ -63,3 +61,21 @@ def edit(request):
                       'users/edit.html',
                       {'user_form': user_form,
                        'profile_form': profile_form})
+
+
+
+def change_tarif(request):
+	return render(request, 'users/payment.html')
+
+
+def change_tarif(request,id):
+	user = Profile.objects.get(id=id)
+	profile = request.user.profile
+	if request.method == "POST":
+		if profile.tarif_pro == False:
+			profile.tarif_pro = True
+			profile.save()
+		else:
+			return HttpResponse("У вас уже есть премиум статус")
+	return redirect("task_list")
+	return render(render, 'users/payment.html')
