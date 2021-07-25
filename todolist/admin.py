@@ -3,15 +3,15 @@ from .models import *
 
 
 class TaskAdmin(admin.ModelAdmin):
-	list_display = ('profile','category','title','priority','complete')
+	list_display = ('user','category','title','priority','complete')
 	list_filter = ('category','priority','complete','created')
 	search_fields = ('title','description')
-	raw_id_fields = ('profile',)
+	raw_id_fields = ('user',)
 	date_hierarchy = 'created'
 	ordering = ['complete','created']
 
 class ProfileAdmin(admin.ModelAdmin):
-	list_display = ('user', 'photo', 'is_status')
+	list_display = ('user', 'photo', 'tarif_pro')
 
 
 admin.site.register(Profile, ProfileAdmin)

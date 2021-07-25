@@ -10,10 +10,10 @@ def user_image_dir(instance, filename):
 
 
 class Profile(models.Model):
-	user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
+	user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
 	photo = ResizedImageField(size=[100,100], upload_to=user_image_dir, blank=True, null=True)
-	is_status = models.BooleanField(default=False)
-	sum_todo = models.IntegerField(default=False, null=True, editable=False)
+	tarif_pro = models.BooleanField(default=False)
+	sum_task = models.IntegerField(default=False, null=True, editable=False)
 
 	def __str__(self):
 		return 'Профиль для пользователя {}'.format(self.user.username)

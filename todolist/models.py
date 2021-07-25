@@ -18,9 +18,9 @@ class Task(models.Model):
 	(3, 'Неважные и несрочные'),
 	]
 
-	profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	title = models.CharField(max_length=200, verbose_name='Название')
-	category = models.ForeignKey(Category,on_delete=models.CASCADE, blank=True, null=True)
+	category = models.ForeignKey(Category,on_delete=models.CASCADE, blank=True, null=True, related_name='category')
 	priority = models.PositiveSmallIntegerField(blank=False, choices=PRIORITY, default=3, verbose_name='Приоритет')
 	description = models.TextField(null=True, blank=True, verbose_name='Описание')
 	complete = models.BooleanField(default=False, verbose_name='Выполнено')
@@ -39,11 +39,11 @@ class Task(models.Model):
 		return self.subcategory_set.filter(parent__isnull=True)
 
 
-	def save(self, *args, **kwargs):
-		if self.profile.sum_todo < 11:
-			self.profile.sum_todo +=1
-			self.profile.save()
-		super().save(*args, **kwargs)
+	# def save(self, *args, **kwargs):
+	# 	if self.user.sum_task < 11:
+	# 		self.user.sum_task +=1
+	# 		self.user.save()
+	# 	super().save(*args, **kwargs)
 
 
 	def delete(self, *args, **kwargs):
@@ -63,7 +63,7 @@ class Task(models.Model):
 
 
 class Subcategory(models.Model):
-	text = models.TextField(max_length=500)
+	name = models.CharField(max_length=200, verbose_name='Подкатегория')
 	category = models.ForeignKey(Category, on_delete=models.CASCADE)
 	task = models.ForeignKey(Task, on_delete=models.CASCADE)
 	parent = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True, null=True)
@@ -74,3 +74,4 @@ class Subcategory(models.Model):
 	class Meta:
 		verbose_name='Подкатегория'
 		verbose_name_plural='Подкатегории'			
+		

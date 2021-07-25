@@ -1,0 +1,21 @@
+{% extends '_base.html' %}
+{% block content %}
+
+<div class="header-bar">
+	<a href="{% url 'category_list' %}">&#8592; Назад</a>
+	
+</div>
+
+<div class="card-body">
+	<h3>Добавить категорию</h3>
+	<form action="" method="POST">
+		{% csrf_token %}
+		{{form.as_p}}
+		{{form.errors}}
+		<input class="button" type="submit" name="Создать">
+	</form>
+</div>
+
+
+
+{% endblock content %}
