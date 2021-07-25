@@ -28,35 +28,35 @@ def task_detail(request, id):
 	return render(request,'todolist/task_detail.html',context)
 
 
-def create_task(request):
-	form = TaskForm()
-	if request.method == 'POST':
-		form = TaskForm(request.POST)
-		if form.is_valid():
-			form.save()
-			return redirect('/')
-	context = {'form':form}
-	return render(request, 'todolist/create_task.html',context)
-
-
 # def create_task(request):
-# 	sum_task = Profile.objects.all().values('sum_task')
-# 	tasks = Task.objects.all()
-# 	profile = request.user.profile
 # 	form = TaskForm()
 # 	if request.method == 'POST':
 # 		form = TaskForm(request.POST)
 # 		if form.is_valid():
-# 			if request.user.profile.sum_task == 10 and request.user.profile.tarif_pro == False:
-# 				messages.success(request, 'Перейти на тариф PRO')
-# 				return HttpResponseRedirect('change_tarif')
-# 			elif request.user.profile.tarif_pro == True:
-# 				task = form.save(commit = False)
-# 				task.user=request.user
-# 				task.save()
-# 				return redirect('task_list')
+# 			form.save()
+# 			return redirect('/')
 # 	context = {'form':form}
 # 	return render(request, 'todolist/create_task.html',context)
+
+
+def create_task(request):
+	sum_task = Profile.objects.all().values('sum_task')
+	tasks = Task.objects.all()
+	profile = request.user.profile
+	form = TaskForm()
+	if request.method == 'POST':
+		form = TaskForm(request.POST)
+		if form.is_valid():
+			if request.user.profile.sum_task == 10 and request.user.profile.tarif_pro == False:
+				messages.success(request, 'Перейти на тариф PRO')
+				return HttpResponseRedirect('change_tarif')
+			elif request.user.profile.tarif_pro == True:
+				task = form.save(commit = False)
+				task.user=request.user
+				task.save()
+				return redirect('task_list')
+	context = {'form':form}
+	return render(request, 'todolist/create_task.html',context)
 
 
 def edit_task(request,task_id):
