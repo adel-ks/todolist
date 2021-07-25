@@ -8,15 +8,9 @@
 <div class="card-body">
 	<form action="." method="POST">
         {% csrf_token %}
-        <label>{{ user_form.username.label }}</label>
-        {{ user_form.username }}
-
-        <label>{{ user_form.password.label }}</label>
-        {{ user_form.password }}
-
-        <label>{{ user_form.confirm_password.label }}</label>
-        {{ user_form.confirm_password }}
-
+        {{ user_form.as_p }}
+        
+       
         <input style="margin-top: 10px;" class="button" type="submit" value="Создать">
     </form>
 

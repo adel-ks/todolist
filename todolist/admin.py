@@ -10,8 +10,11 @@ class TaskAdmin(admin.ModelAdmin):
 	date_hierarchy = 'created'
 	ordering = ['complete','created']
 
+class ProfileAdmin(admin.ModelAdmin):
+	list_display = ('user', 'photo', 'is_status')
 
-admin.site.register(Profile)
+
+admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Category)
 admin.site.register(Task, TaskAdmin)
 admin.site.register(Subcategory)

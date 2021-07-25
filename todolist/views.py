@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 def task_list(request):
 	tasks = Task.objects.all()
 	context = {'tasks': tasks}
-	# return render(request, 'todolist/task_list.html', context)
+	
 	search_input = request.GET.get('search_area')
 	if search_input:
 		tasks = Task.objects.filter(title__startswith=search_input)

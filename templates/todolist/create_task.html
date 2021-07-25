@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="header-bar">
-	<a href="{% url 'tasks' %}">&#8592; Назад</a>
+	<a href="{% url 'task_list' %}">&#8592; Назад</a>
 	
 </div>
 
@@ -11,6 +11,7 @@
 	<form action="" method="POST">
 		{% csrf_token %}
 		{{form.as_p}}
+		{{form.errors}}
 		<input class="button" type="submit" name="Создать">
 	</form>
 </div>
