@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import *
+from users.models import *
 
 
 class TaskAdmin(admin.ModelAdmin):
@@ -17,4 +18,4 @@ class ProfileAdmin(admin.ModelAdmin):
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Category)
 admin.site.register(Task, TaskAdmin)
-admin.site.register(Subcategory)
+# admin.site.register(Subcategory)

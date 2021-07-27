@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Task, Category, Subcategory
+from .models import Task, Category
 
 
 class CategoryForm(forms.ModelForm):
@@ -19,12 +19,12 @@ class TaskForm(forms.ModelForm):
 			'complete',
 		]
 
-class SubcategoryForm(forms.ModelForm):
-	class Meta:
-		model = Subcategory
-		fields = [
-			'name',
-			'category',
-			'task',
-			'parent',
-		]
+# class SubcategoryForm(forms.ModelForm):
+# 	class Meta:
+# 		model = Subcategory
+# 		fields = [
+# 			'name',
+# 			'category',
+# 			'task',
+# 			'parent',
+# 		]

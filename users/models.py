@@ -1,8 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
 from PIL import Image
 from django_resized import ResizedImageField
-from django.conf import settings
+
 
 
 def user_image_dir(instance, filename):
@@ -22,3 +23,4 @@ class Profile(models.Model):
 	# 	if created:
 	# 		Profile.objects.create(user=instance)
 	# 		task_save.connect(create_profile, sender=User)
+

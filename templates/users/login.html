@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-{% load socialaccount %}
+
 
 {% block content %}
 
@@ -19,22 +19,7 @@
 </div>
 
 
-<div class="mr-block">
-    <div class="social">
-    <ul>
-        <li class="facebook">
-            <a href="{% url 'social:begin' 'facebook' %}">Войти через Facebook</a>
 
-        </li>
-    </ul>
-    <ul>
-        </li class="'google">
-            <a href="{% url 'social:begin' 'google-oauth2' %}">Войти через Google</a>
-            <a type="button" class="btn btn-primary btn-sm" href="{% provider_login_url 'google' %}">Small button</a>
-        <li>
-    </ul>
-    
-</div>
 </div>
 	
 {% endblock %}

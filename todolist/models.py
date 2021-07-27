@@ -1,14 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
-from users.models import Profile
 
 
 class Category(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	name = models.CharField(max_length=150, null=True, verbose_name='Категория')
 
 	def __str__(self):
 		return self.name
+
 
 
 class Task(models.Model):
@@ -30,25 +31,24 @@ class Task(models.Model):
 	def __str__(self):
 		return self.title
 
+
+	# def get_subcategories(self):
+	# 	return self.subcategory_set.filter(parent__isnull=True)
+
+
+	def save(self, *args, **kwargs):
+	  	self.user.profile.sum_task += 1
+	  	self.user.profile.save()
+	  	super().save(*args, **kwargs)
+
+
+	# def delete(self, *args, **kwargs):
+	# 	super(Task, self).delete(*args, **kwargs)
+	# 	self.title.delete()
+
+
 	def get_absolute_url(self):
 		return reverse('views.task_details', args=[str(self.id)])
-
-
-
-	def get_subcategories(self):
-		return self.subcategory_set.filter(parent__isnull=True)
-
-
-	# def save(self, *args, **kwargs):
-	# 	if self.user.sum_task < 11:
-	# 		self.user.sum_task +=1
-	# 		self.user.save()
-	# 	super().save(*args, **kwargs)
-
-
-	def delete(self, *args, **kwargs):
-		super(Task, self).delete(*args, **kwargs)
-		self.todo.delete()
 
 
 	def get_context_data(self, **kwargs):
@@ -62,16 +62,16 @@ class Task(models.Model):
 
 
 
-class Subcategory(models.Model):
-	name = models.CharField(max_length=200, verbose_name='Подкатегория')
-	category = models.ForeignKey(Category, on_delete=models.CASCADE)
-	task = models.ForeignKey(Task, on_delete=models.CASCADE)
-	parent = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True, null=True)
+# class Subcategory(models.Model):
+# 	name = models.CharField(max_length=200, verbose_name='Подкатегория')
+# 	category = models.ForeignKey(Category, on_delete=models.CASCADE)
+# 	task = models.ForeignKey(Task, on_delete=models.CASCADE)
+# 	parent = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True, null=True)
 
-	def __str__(self):
-		return f'{self.category.name} - {self.task.name}'
+# 	def __str__(self):
+# 		return f'{self.category.name} - {self.task.name}'
 
-	class Meta:
-		verbose_name='Подкатегория'
-		verbose_name_plural='Подкатегории'			
-		
+# 	class Meta:
+# 		verbose_name='Подкатегория'
+# 		verbose_name_plural='Подкатегории'			
+# 		

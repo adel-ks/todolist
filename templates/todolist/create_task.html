@@ -11,11 +11,14 @@
 	<form action="" method="POST">
 		{% csrf_token %}
 		{{form.as_p}}
-		{{form.errors}}
+		{{field.errors}}
 		<input class="button" type="submit" name="Создать">
 	</form>
 </div>
 
-
+<div>
+	<h6></h6>
+	<a href=""></a>
+</div>
 
 {% endblock content %}
