@@ -64,8 +64,8 @@ def edit(request):
 
 
 
-def change_tarif(request):
-	return render(request, 'users/payment.html')
+# def change_tarif(request):
+# 	return render(request, 'users/payment.html')
 
 
 def change_tarif(request,id):
