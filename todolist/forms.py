@@ -6,13 +6,14 @@ from .models import Task, Category
 class CategoryForm(forms.ModelForm):
 	class Meta:
 		model = Category
-		fields = ['name']
+		fields = ['name',]
 		
 
 class TaskForm(forms.ModelForm):
 	class Meta:
 		model = Task
 		fields = [
+			'category',
 			'title',
 			'priority',
 			'description',

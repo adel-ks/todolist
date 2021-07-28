@@ -46,7 +46,7 @@ def logout(request):
 
 
 
-@login_required(login_url='login')
+@login_required
 def edit(request):
     if request.method == 'POST':
         user_form = UserEditForm(instance=request.user, data=request.POST)

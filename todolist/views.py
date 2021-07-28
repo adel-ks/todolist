@@ -14,11 +14,11 @@ def task_list(request):
 		search_input = request.GET.get('search_area')
 		if search_input:
 			tasks = Task.objects.filter(title__startswith=search_input)
-			categoties = Task.objects.filter(title__startswith=search_input)
-			context = {'tasks':tasks,'categoties':categoties}
+			context = {'tasks':tasks}
 		else:
 			tasks = Task.objects.filter(user=request.user)
-		context = {'tasks':tasks}
+			categoties = Category.objects.filter(user=request.user)
+		context = {'tasks':tasks,'categoties':categoties}
 		return render(request, 'todolist/task_list.html', context)
 
 
@@ -28,7 +28,7 @@ def task_detail(request, task_id):
 		task=Task.objects.get(id=task_id)
 	except Task.DoesNotExist:
 		raise Http404("Задачи не существует")
-	context={'task':task,}
+	context={'task':task}
 	return render(request,'todolist/task_detail.html',context)
 
 
@@ -88,27 +88,29 @@ def delete_task(request,task_id):
 
 @login_required
 def category_list(request):
-	categories = Category.objects.filter(user=request.user)
+	categories = Category.objects.all()
 	context = {'categories':categories}
 	return render(request, 'todolist/category_list.html', context)
 
 
 @login_required
 def category_create(request):
+	categories = Category.objects.filter(user=request.user)
+	context = {'categories':categories}
 	form = CategoryForm()
 	if request.method == 'POST':
 		form = CategoryForm(request.POST)
 		if form.is_valid():
-			category = form.save(commit=False)
+			category = form.save(commit = False)
 			category.user=request.user
 			category.save()
-			return redirect('category_list')
+			return redirect('category_list')	
 	context = {'form':form}
 	return render(request,'todolist/category_create.html', context)
 
 
-def category_edit(request,category_id):
-	category = get_object_or_404(Category, id=category_id)
+def category_edit(request,cat_id):
+	category = get_object_or_404(Category, id=cat_id)
 	if category.user == request.user:
 		form = CategoryForm(request.POST or None, instance = category)
 		context = {'form':form}
@@ -125,8 +127,8 @@ def category_edit(request,category_id):
 		return redirect('login')
 
 
-def category_delete(request,category_id):
-	category= get_object_or_404(Task, id=category_id)
+def category_delete(request,cat_id):
+	category= get_object_or_404(Category, id=cat_id)
 	if category.user == request.user:
 		if request.method == "POST": 
 			category.delete()

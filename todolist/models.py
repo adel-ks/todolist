@@ -5,7 +5,7 @@ from django.conf import settings
 
 class Category(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
-	name = models.CharField(max_length=150, null=True, verbose_name='Категория')
+	name = models.CharField(max_length=150, null=True, verbose_name='Название')
 
 	def __str__(self):
 		return self.name
@@ -21,7 +21,7 @@ class Task(models.Model):
 
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	title = models.CharField(max_length=200, verbose_name='Название')
-	category = models.ForeignKey(Category,on_delete=models.CASCADE, blank=True, null=True, related_name='category')
+	category = models.ForeignKey(Category,on_delete=models.CASCADE, blank=True, null=True, verbose_name='Категория')
 	priority = models.PositiveSmallIntegerField(blank=False, choices=PRIORITY, default=3, verbose_name='Приоритет')
 	description = models.TextField(null=True, blank=True, verbose_name='Описание')
 	complete = models.BooleanField(default=False, verbose_name='Выполнено')
@@ -42,9 +42,9 @@ class Task(models.Model):
 	  	super().save(*args, **kwargs)
 
 
-	# def delete(self, *args, **kwargs):
-	# 	super(Task, self).delete(*args, **kwargs)
-	# 	self.title.delete()
+	def delete(self, *args, **kwargs):
+		super(Task, self).delete(*args, **kwargs)
+		self.title.delete()
 
 
 	def get_absolute_url(self):
