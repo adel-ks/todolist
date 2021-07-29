@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .decorators import *
 from .models import Profile
-from .forms import *
 from .forms import LoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm
+from .forms import *
 
 
 
@@ -44,23 +47,46 @@ def logout(request):
 	auth_logout(request)
 	return redirect('login')
 
+# @for_authenticated_user
+@login_required
+def password_change(request):
+	if request.user.is_authenticated:
+		if request.method == 'POST':
+			form = PasswordChangeForm(request.user, request.POST)
+			if form.is_valid():
+				user = form.save()
+				update_session_auth_hash(request, user) 
+				messages.success(request, 'Ваш пароль успешно изменен!')
+				return redirect('password_change')
+			else:
+				messages.error(request, 'Пожалуйста, введи еще раз.')
+		else:
+			form = PasswordChangeForm(request.user)
+		return render(request, 'users/password_change_form.html', {'form': form})
+
+
+@for_authenticated_user
+def password_change_done(request):
+	logout(request)
+	return redirect('login')
+
 
 
 @login_required
 def edit(request):
-    if request.method == 'POST':
-        user_form = UserEditForm(instance=request.user, data=request.POST)
-        profile_form = ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-    else:
-        user_form = UserEditForm(instance=request.user)
-        profile_form = ProfileEditForm(instance=request.user.profile)
-        return render(request,
-                      'users/edit.html',
-                      {'user_form': user_form,
-                       'profile_form': profile_form})
+	if request.method == 'POST':
+		user_form = UserEditForm(instance=request.user, data=request.POST)
+		profile_form = ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
+		if user_form.is_valid() and profile_form.is_valid():
+			user_form.save()
+			profile_form.save()
+	else:
+		user_form = UserEditForm(instance=request.user)
+		profile_form = ProfileEditForm(instance=request.user.profile)
+		return render(request,
+					  'users/edit.html',
+					  {'user_form': user_form,
+					   'profile_form': profile_form})
 
 
 
