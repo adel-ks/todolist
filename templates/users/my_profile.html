@@ -23,7 +23,7 @@
 		{{request.user.first_name|title}}
 		{% if request.user.profile.tarif_pro == True %}
 		{% endif %}
-		<br><img src="{{user.profile.photo.url}}" alt="">
+		<br><img src="{{request.profile.photo.url}}" alt="">
 	</ul>
 
 	<div>
