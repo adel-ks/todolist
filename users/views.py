@@ -11,10 +11,10 @@ from .forms import LoginForm, UserRegistrationForm, UserEditForm, ProfileEditFor
 from .forms import *
 
 
-def users_list(request):
-	profiles = Profile.objects.select_related('user')
-	context = {'profiles': profiles}
-	return render(request, 'users/user_list.html', context)
+def my_profile(request):
+	profile = Profile.objects.filter(user=request.user)
+	context = {'profile': profile}
+	return render(request, 'users/my_profile.html', context)
 
 
 def register(request):
