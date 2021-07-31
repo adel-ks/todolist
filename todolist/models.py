@@ -42,9 +42,9 @@ class Task(models.Model):
 	  	super().save(*args, **kwargs)
 
 
-	def delete(self, *args, **kwargs):
-		super(Task, self).delete(*args, **kwargs)
-		self.title.delete()
+	# def delete(self, *args, **kwargs):
+	# 	super(Task, self).delete(*args, **kwargs)
+	# 	self.title.delete()
 
 
 	def get_absolute_url(self):

@@ -24,18 +24,17 @@
 </div>
 
 <div class="category-items-wrapper">
-	{% for category in categories %}
-		
-
+	
+		{% for category in categories %}
 			<div class="category-title">
-				{{category.name}}
-
+    			{{category.name}}
+		
 				<a href="{% url 'category_edit' category.id %}">{{category}}</a>
 				
 				<a class="delete-link" href="{% url 'category_delete' category.id %}">&#215;</a>
-		
-		</div>
-	{% empty %}
+	
+			</div>
+		{% empty %}
 
 		<h3>Ваш список пуст</h3>
 

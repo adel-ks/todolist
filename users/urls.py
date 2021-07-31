@@ -10,6 +10,7 @@ urlpatterns = [
 	path('register/', register, name='register'),
 	path('login/', login, name='login'),
 	path('logout/', logout, name='logout'),
+	path('users_list/', users_list, name='users_list'),
 	path('edit/', edit, name='edit'),
 	# path('password_change/',auth_views.PasswordChangeView.as_view(template_name='users/password_change_form.html'), name='password_change'),
 	path('password_change/',password_change, name='password_change'),
@@ -18,5 +19,3 @@ urlpatterns = [
 ]
 
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

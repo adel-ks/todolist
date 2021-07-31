@@ -11,6 +11,11 @@ from .forms import LoginForm, UserRegistrationForm, UserEditForm, ProfileEditFor
 from .forms import *
 
 
+def users_list(request):
+	profiles = Profile.objects.select_related('user')
+	context = {'profiles': profiles}
+	return render(request, 'users/user_list.html', context)
+
 
 def register(request):
 	if request.method == 'POST':
@@ -48,7 +53,7 @@ def logout(request):
 	return redirect('login')
 
 # @for_authenticated_user
-@login_required
+# @login_required
 def password_change(request):
 	if request.user.is_authenticated:
 		if request.method == 'POST':
@@ -83,10 +88,9 @@ def edit(request):
 	else:
 		user_form = UserEditForm(instance=request.user)
 		profile_form = ProfileEditForm(instance=request.user.profile)
-		return render(request,
-					  'users/edit.html',
-					  {'user_form': user_form,
-					   'profile_form': profile_form})
+		context = {'user_form': user_form, 'profile_form': profile_form}
+		return render(request,'users/edit.html', context)
+					  
 
 
 

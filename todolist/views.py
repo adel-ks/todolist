@@ -10,7 +10,6 @@ from .forms import *
 def task_list(request):
 		tasks = Task.objects.filter(user=request.user)
 		categoties = Category.objects.filter(user=request.user)
-		context = {'tasks':tasks, 'categoties':categoties}
 		search_input = request.GET.get('search_area')
 		if search_input:
 			tasks = Task.objects.filter(title__startswith=search_input)
@@ -36,7 +35,8 @@ def task_detail(request, task_id):
 def create_task(request):
 	tasks = Task.objects.filter(user=request.user)
 	if request.user.profile.sum_task >= 10 and not request.user.profile.tarif_pro:
-		return redirect('change_tarif')
+		# return redirect('change_tarif')
+		return render(request, 'users/payment.html')
 	profile = request.user.profile
 	form = TaskForm()
 	if request.method == 'POST':

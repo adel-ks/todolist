@@ -5,14 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDoList</title>
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
+    
+</head>
 
-
+<body>
     <style>
-        body{
+    body{
             background-color: #fff;
             font-family: 'PT Serif', serif;
             padding-top: 50px;
@@ -150,10 +152,33 @@
             border:  1px solid #000;
         }
 
+        .social {
+            width: 70%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .social-list {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+        }
+        .social-link {
+            padding: 0 10px;
+        }
+        .google-item .social-link svg {
+            width: 100px;
+        }
+        
     </style>
 
-</head>
-<body>
+    <a href="#">
+        <!-- <i class="fa fa-google-plus-official" aria-hidden="true"></i> -->
+    </a>
+
+
     <div class="container">
         {% block content %}
 

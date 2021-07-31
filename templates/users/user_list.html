@@ -1,0 +1,15 @@
+{% extends "_base.html" %}
+{% block title %}
+{{request.user.first_name}}
+
+{% endblock title %}
+{% block content %}
+
+{% if user.is_authenticated %}
+	<li class="nav">
+	    <a href="{% url 'edit' %}" class="nav__link">
+	    <img src="{{user.profile.photo.url}}" class="" alt=""></a>
+	</li> 
+	
+	<li class="nav"><a class="nav__link" href="{% url 'logout' %}">Выход</a></li>
+{% endif %}

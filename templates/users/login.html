@@ -1,5 +1,5 @@
-{% extends "_base.html" %}
-
+{% extends '_base.html' %}
+{% load socialaccount %}
 
 {% block content %}
 
@@ -13,6 +13,7 @@
     <form action="." method="POST">
         {% csrf_token %}
         {{form.as_p}}
+    
         <input class="button" type="submit" value="Войти">
     </form>
     <p>Забыли пароль? <a href="{% url 'password_change' %}">Смена пароля</a></p>
@@ -20,7 +21,12 @@
 </div>
 
 
-
-</div>
-	
+    <div class="card-body">
+        <a href="{% provider_login_url 'google' %}" class="google btn">
+            
+          <i class="bf-icon fa fa-google"></i> Войти через Google
+        </a>
+        <!-- class="fa fa-google-plus-official" aria-hidden="true" -->
+      </div>
+      
 {% endblock %}
