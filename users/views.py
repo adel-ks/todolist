@@ -54,20 +54,20 @@ def logout(request):
 
 # @for_authenticated_user
 # @login_required
-def password_change(request):
-	if request.user.is_authenticated:
-		if request.method == 'POST':
-			form = PasswordChangeForm(request.user, request.POST)
-			if form.is_valid():
-				user = form.save()
-				update_session_auth_hash(request, user) 
-				messages.success(request, 'Ваш пароль успешно изменен!')
-				return redirect('password_change')
-			else:
-				messages.error(request, 'Пожалуйста, введи еще раз.')
-		else:
-			form = PasswordChangeForm(request.user)
-		return render(request, 'users/password_change_form.html', {'form': form})
+# def password_change(request):
+# 	if request.user.is_authenticated:
+# 		if request.method == 'POST':
+# 			form = PasswordChangeForm(request.user, request.POST)
+# 			if form.is_valid():
+# 				user = form.save()
+# 				update_session_auth_hash(request, user) 
+# 				messages.success(request, 'Ваш пароль успешно изменен!')
+# 				return redirect('password_change')
+# 			else:
+# 				messages.error(request, 'Пожалуйста, введи еще раз.')
+# 		else:
+# 			form = PasswordChangeForm(request.user)
+# 		return render(request, 'users/password_change_form.html', {'form': form})
 
 
 @for_authenticated_user
@@ -97,15 +97,12 @@ def edit(request):
 # def change_tarif(request):
 # 	return render(request, 'users/payment.html')
 
-
-def change_tarif(request,id):
-	user = Profile.objects.get(id=id)
+@login_required
+def tarif_pro(request):
 	profile = request.user.profile
-	if request.method == "POST":
-		if profile.tarif_pro == False:
-			profile.tarif_pro = True
-			profile.save()
-		else:
-			return HttpResponse("У вас уже есть премиум статус")
+	if profile.tarif_pro == False:
+		profile.tarif_pro = True
+		profile.save()
+	else:
+		return HttpResponse("У вас уже есть премиум статус")
 	return redirect("task_list")
-	return render(render, 'users/payment.html')

@@ -50,10 +50,6 @@ def create_task(request):
 	return render(request, 'todolist/create_task.html', context)
 
 
-@login_required
-def change_tarif(request):
-	return HttpResponse('change_tarif')
-
 
 def edit_task(request,task_id):
 	task = get_object_or_404(Task, id=task_id)
