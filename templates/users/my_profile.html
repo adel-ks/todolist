@@ -5,12 +5,32 @@
 {% endblock title %}
 {% block content %}
 
-{% if user.is_authenticated %}
-	<li class="nav">
-	    <a href="{% url 'edit' %}" class="nav__link">
-	    <img src="{{user.profile.photo.url}}" class="" alt=""></a>
-	</li> 
+<div class="header-bar">
+		<a href="{% url 'task_list' %}">Назад</a>
+	<div>
+		<h3>Мой профиль</h3>
+	</div>
+		
+
+		{% if request.user.is_authenticated %}
+			<a href="{% url 'index_page' %}">Главная</a>
 	
-	<li class="nav"><a class="nav__link" href="{% url 'logout' %}">Выход</a></li>
-{% endif %}
+		{% endif %}
+
+	</div>
+
+	<ul>
+		{{request.user.first_name|title}}
+		{% if request.user.profile.tarif_pro == True %}
+		{% endif %}
+		<br><img src="{{request.user.profile.photo.url}}" alt="">
+	</ul>
+
+	<div>
+		<a href="{% url 'edit' %}">Редактировать</a>
+	</div>
+
+
+	
+
 {% endblock %}

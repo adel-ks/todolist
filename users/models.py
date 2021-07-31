@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from PIL import Image
 from django_resized import ResizedImageField
+import os
 
 
 

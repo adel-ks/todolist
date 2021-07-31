@@ -3,8 +3,12 @@
 {% block title %}Изменить{% endblock %}
 
 {% block content %}
-    <h1>Изменить учетную запись</h1>
-    
+<div class="header-bar">
+    <div>
+        <h1>Изменить учетную запись</h1>
+    </div>
+    <a href="{% url 'my_profile' %}">Назад</a>
+</div>
     <form action="." method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ user_form.as_p }}

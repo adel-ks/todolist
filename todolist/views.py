@@ -16,8 +16,9 @@ def task_list(request):
 			context = {'tasks':tasks}
 		else:
 			tasks = Task.objects.filter(user=request.user)
+			task_count = Task.objects.filter(complete=False).count()
 			categoties = Category.objects.filter(user=request.user)
-		context = {'tasks':tasks,'categoties':categoties}
+		context = {'tasks':tasks,'categoties':categoties, 'task_count':task_count}
 		return render(request, 'todolist/task_list.html', context)
 
 

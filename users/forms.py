@@ -10,7 +10,7 @@ class UserRegistrationForm(forms.ModelForm):
 	email = forms.EmailField(label='Электронная почта', required=True)
 	password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
 	confirm_password = forms.CharField(label='Подтвердите пароль', widget=forms.PasswordInput)
-
+	
 
 	class Meta:
 		model = User

@@ -1,13 +1,11 @@
 {% extends '_base.html' %}
+
 {% block content %}
 
-	
 <div class="header-bar">
 	<div>
-		<h1>{{request.user.first_name|title}}, ваш список задач</h1>
-		<h3 style="margin: 0;">У вас незавершенных <i>{{task.count}}</i>
-			
-		</h3>
+		<h2>{{request.user.first_name|title}}, ваш список задач:</h2>
+		<h2 style="margin: 0;">Незавершенных: {{task_count}}</h3>
 	</div>
 
 	{% if request.user.is_authenticated %}
@@ -31,17 +29,22 @@
 	{% for task in tasks %}
 		<div class="task-wrapper">
 		{% if task.complete %}
-			<div class="task-title">
+			<div class="task-title tooltip">
 				<div class="task-complete-icon"></div>
 				<i><s><a href="{% url 'edit_task' task.id %}">{{task}}</a></s></i>
+				<span class="tooltiptext">Редактировать</span>
 			</div>
 				<a class="delete-link" href="{% url 'delete_task' task.id %}">&#215;</a>
 		{% else %}
-			<div class="task-title">
+			<div class="task-title tooltip">
 				<div class="task-incomplete-icon"></div>
 				<a href="{% url 'edit_task' task.id %}">{{task}}</a>
+				<span class="tooltiptext">Редактировать</span>
 			</div>
+			<div class="tooltip">
 				<a class="delete-link" href="{% url 'delete_task' task.id %}">&#215;</a>
+				<span class="tooltiptext">Удалить</span>
+			</div>	
 		{% endif %}	
 		</div>
 	{% empty %}
