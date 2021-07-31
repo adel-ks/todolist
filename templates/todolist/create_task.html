@@ -2,12 +2,13 @@
 {% block content %}
 
 <div class="header-bar">
+	<div><h3>Добавить новую задачу</h3></div>
+	
 	<a href="{% url 'task_list' %}">&#8592; Назад</a>
 	
 </div>
 
 <div class="card-body">
-	<h3>Добавить новую задачу</h3>
 	<form action="" method="POST">
 		{% csrf_token %}
 		{{form.as_p}}

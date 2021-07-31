@@ -9,6 +9,7 @@
 	</div>
 
 	{% if request.user.is_authenticated %}
+		<a href="{% url 'category_list' %}">Категория</a>
 		<a href="{% url 'index_page' %}">Главная</a>
 	{% else %}
 		<a href="{% url 'login' %}">Войти</a>
@@ -21,7 +22,10 @@
 		<input type="text" name="search_area">
 		<input class="button" type="submit" value="Поиск">
 	</form>
-	<a id="add-link" href="{% url 'create_task' %}">&#x2b;</a>
+	<div class="tooltip">
+		<a  id="add-link" href="{% url 'create_task' %}">&#x2b;</a>
+		<span class="tooltiptext">Добавить</span>
+	</div>
 </div>
 
 
@@ -32,14 +36,14 @@
 			<div class="task-title tooltip">
 				<div class="task-complete-icon"></div>
 				<i><s><a href="{% url 'edit_task' task.id %}">{{task}}</a></s></i>
-				<span class="tooltiptext">Редактировать</span>
+				<span class="tooltiptext">Изменить</span>
 			</div>
 				<a class="delete-link" href="{% url 'delete_task' task.id %}">&#215;</a>
 		{% else %}
 			<div class="task-title tooltip">
 				<div class="task-incomplete-icon"></div>
 				<a href="{% url 'edit_task' task.id %}">{{task}}</a>
-				<span class="tooltiptext">Редактировать</span>
+				<span class="tooltiptext">Изменить</span>
 			</div>
 			<div class="tooltip">
 				<a class="delete-link" href="{% url 'delete_task' task.id %}">&#215;</a>
@@ -49,7 +53,7 @@
 		</div>
 	{% empty %}
 
-		<h3>Ваш список пуст</h3>
+		<h3>Пока ничего нет</h3>
 
 	{% endfor %}
 	
