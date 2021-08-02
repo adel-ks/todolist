@@ -18,14 +18,11 @@ class TaskForm(forms.ModelForm):
 			'priority',
 			'description',
 			'complete',
-		]
+	]
 
-# class SubcategoryForm(forms.ModelForm):
-# 	class Meta:
-# 		model = Subcategory
-# 		fields = [
-# 			'name',
-# 			'category',
-# 			'task',
-# 			'parent',
-# 		]
+	def __init__(self, *args, **kwargs):
+		print(kwargs)
+		user = kwargs.pop('user', None)
+		super(TaskForm, self).__init__(*args, **kwargs)
+		self.fields['category'].queryset = Category.objects.filter(user=user)
+

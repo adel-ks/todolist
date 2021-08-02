@@ -32,30 +32,16 @@ class Task(models.Model):
 		return self.title
 
 
-	# def get_subcategories(self):
-	# 	return self.subcategory_set.filter(parent__isnull=True)
-
-
 	def save(self, *args, **kwargs):
 	  	self.user.profile.sum_task += 1
 	  	self.user.profile.save()
 	  	super().save(*args, **kwargs)
 
 
-	# def delete(self, *args, **kwargs):
-	# 	super(Task, self).delete(*args, **kwargs)
-	# 	self.title.delete()
-
 
 	def get_absolute_url(self):
 		return reverse('views.task_details', args=[str(self.id)])
 
-
-	def get_context_data(self, **kwargs):
-		context = super().get_context_data(**kwargs)
-		context['tasks'] = context['tasks'].filter(user=self.request.user)
-		context['count'] = context['tasks'].filter(complete=False).count()
-		return context
 
 	class Meta:
 		ordering = ['complete']

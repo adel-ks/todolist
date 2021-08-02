@@ -34,14 +34,12 @@ def task_detail(request, task_id):
 
 @login_required
 def create_task(request):
-	tasks = Task.objects.filter(user=request.user)
-	categoties = Category.objects.filter(user=request.user)
 	if request.user.profile.sum_task >= 10 and not request.user.profile.tarif_pro:
 		return render(request, 'users/payment.html')
 	profile = request.user.profile
-	form = TaskForm()
+	form = TaskForm(user=request.user.id)
 	if request.method == 'POST':
-		form = TaskForm(request.POST)
+		form = TaskForm( request.POST, user=request.user.id)
 		if form.is_valid():
 			task = form.save(commit = False)
 			task.user=request.user
@@ -51,23 +49,22 @@ def create_task(request):
 	return render(request, 'todolist/create_task.html', context)
 
 
-
+@login_required
 def edit_task(request,task_id):
 	task = get_object_or_404(Task, id=task_id)
-	if task.user == request.user:
-		form = TaskForm(request.POST or None, instance = task)
-		context = {'form':form}
+	if task.user != request.user:
+		return redirect('my_profile')
+	form = TaskForm(user=request.user)
+	if request.method == 'POST':
+		form = TaskForm(request.POST or None, instance = task, user=request.user)
 		if form.is_valid():
 			task=form.save()
-			task.save()
 			messages.success(request, 'Успешно обновлено')
-			context = {'form':form}
 			return redirect('task_list')
 		else:
 			context = {'form':form, 'error':'К сожалению, не обновлено. Повторите, пожалуйста.'}
-			return render(request, 'todolist/edit_task.html', context)
-	else:
-		return redirect('login')
+	context = {'form':form}
+	return render(request, 'todolist/edit_task.html', context)
 
 
 def delete_task(request,task_id):
