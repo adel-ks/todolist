@@ -28,7 +28,12 @@
 	
 		{% endif %}
 
-		<br><img src="{{request.user.profile.photo.url}}"  alt="">
+		{% ifequal object.image None %}
+			<br><img src="/media/default/av.jpg" />
+		{% else %}
+			<br><img src="{{request.user.profile.photo.url}}"  alt="">
+    
+		{% endifequal %}
 
 	
 

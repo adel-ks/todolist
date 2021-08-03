@@ -54,7 +54,7 @@ def edit_task(request,task_id):
 	task = get_object_or_404(Task, id=task_id)
 	if task.user != request.user:
 		return redirect('my_profile')
-	form = TaskForm(user=request.user)
+	form = TaskForm(user=request.user,  instance = task)
 	if request.method == 'POST':
 		form = TaskForm(request.POST or None, instance = task, user=request.user)
 		if form.is_valid():
