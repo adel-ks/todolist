@@ -4,5 +4,5 @@
 *.pyc
 __pycache__
 /env
-/media/*
-!/media/default.png
+media/*
+!media/default.png
