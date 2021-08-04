@@ -18,4 +18,3 @@ class ProfileAdmin(admin.ModelAdmin):
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Category)
 admin.site.register(Task, TaskAdmin)
-# admin.site.register(Subcategory)

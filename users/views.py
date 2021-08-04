@@ -10,7 +10,7 @@ from .models import Profile
 from .forms import LoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm
 from .forms import *
 
-
+@login_required
 def my_profile(request):
 	profile = Profile.objects.filter(user=request.user)
 	context = {'profile': profile}
@@ -19,12 +19,12 @@ def my_profile(request):
 
 def register(request):
 	if request.method == 'POST':
-		user_form = UserRegistrationForm(request.POST or None)
+		user_form = UserRegistrationForm(request.POST)
 		if user_form.is_valid():
 			new_user = user_form.save(commit=False)
 			new_user.set_password(user_form.cleaned_data['password'])
 			new_user.save()
-			profile = Profile.objects.create(user=new_user)
+			
 			context = {'new_user': new_user}
 			return render(request, 'users/register_done.html', context)
 	else:
@@ -39,7 +39,6 @@ def login(request):
 		form = LoginForm(data =request.POST)
 		if form.is_valid():
 			cd = form.cleaned_data
-
 			user = authenticate(username = cd['username'], password = cd['password'])
 			if user is not None:
 				auth_login(request, user)
@@ -52,29 +51,22 @@ def logout(request):
 	auth_logout(request)
 	return redirect('login')
 
-# @for_authenticated_user
 # @login_required
-# def password_change(request):
-# 	if request.user.is_authenticated:
+# def edit(request):
+# 		user_form = UserEditForm(instance=request.user)
+# 		profile_form = ProfileEditForm(instance=request.user.profile)
 # 		if request.method == 'POST':
-# 			form = PasswordChangeForm(request.user, request.POST)
-# 			if form.is_valid():
-# 				user = form.save()
-# 				update_session_auth_hash(request, user) 
-# 				messages.success(request, 'Ваш пароль успешно изменен!')
-# 				return redirect('password_change')
-# 			else:
-# 				messages.error(request, 'Пожалуйста, введи еще раз.')
-# 		else:
-# 			form = PasswordChangeForm(request.user)
-# 		return render(request, 'users/password_change_form.html', {'form': form})
-
-
-@for_authenticated_user
-def password_change_done(request):
-	logout(request)
-	return redirect('login')
-
+# 			user_form = UserEditForm(request.POST, instance = request.user)
+# 			profile_form = ProfileEditForm(request.POST, request.FILES)
+# 		if user_form.is_valid() and profile_form.is_valid():
+# 			user_form.save()
+# 			profile_form.save()
+# 			return redirect('my_profile')
+# 	else:
+# 		user_form = UserEditForm(instance=request.user)
+# 		profile_form = ProfileEditForm(instance=request.user.profile)
+# 		context = {'user_form': user_form, 'profile_form': profile_form}
+# 		return render(requ
 
 
 @login_required
@@ -92,11 +84,6 @@ def edit(request):
 		context = {'user_form': user_form, 'profile_form': profile_form}
 		return render(request,'users/edit.html', context)
 					  
-
-
-
-# def change_tarif(request):
-# 	return render(request, 'users/payment.html')
 
 @login_required
 def tarif_pro(request):

@@ -1,24 +1,20 @@
 {% extends "_base.html" %}
-{% load static %}
 
 {% block title %}
 {{request.user.first_name}}
-
 {% endblock title %}
+
 {% block content %}
 
 <div class="header-bar">
+
 		<a href="{% url 'task_list' %}">Назад</a>
 	<div>
 		<h3>Мой профиль</h3>
-	</div>
-		
-
+	</div>		
 		{% if request.user.is_authenticated %}
 			<a href="{% url 'index_page' %}">Главная</a>
-	
 		{% endif %}
-
 </div>
 
 	<ul>		
@@ -26,25 +22,16 @@
 			<big>{{request.user.first_name|title}} <i class="fas fa-crown" style="color:orange;"></i></big>
 		{% elif request.user.profile.tarif_pro == False %}
 			<big>{{request.user.first_name|title}}</big>
-	
 		{% endif %}
 
-		{% ifequal object.image None %}
-			<br><img src="/static/images/av.jpg" />
-		{% else %}
-			<br><img src="{{request.user.profile.photo.url}}"  alt="">
-    
-		{% endifequal %}
-
-	
-
+		
+		<br><img src="{{request.user.profile.photo.url}}">
+		
+		
 	</ul>
 
 	<div>
 		<a href="{% url 'edit' %}">Редактировать</a>
 	</div>
-
-
-	
 
 {% endblock %}

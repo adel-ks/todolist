@@ -8,11 +8,11 @@
         <h1>Изменить учетную запись</h1>
     </div>
     <a href="{% url 'my_profile' %}">Назад</a>
-</div>
+</div class="card-body" >
     <form action="." method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ user_form.as_p }}
         {{ profile_form.as_p }}
-        <p><input type="submit" value="Сохранить изменеия"></p>
+        <p><input class="button" type="submit" value="Сохранить изменения"></p>
     </form>
 {% endblock %}

@@ -30,7 +30,12 @@ class UserRegistrationForm(forms.ModelForm):
 		if password != confirm_password:
 			raise forms.ValidationError('Пароли не совпадают')
 		return self.cleaned_data
-		
+
+	def clean_email(self):
+		email = self.cleaned_data['email']
+		if User.objects.filter(email=email).exists():
+			raise forms.ValidationError('Данный электронный адрес уже используется')
+
 
 class LoginForm(forms.Form):
 	username = forms.CharField(label='Имя пользователя')
@@ -38,12 +43,13 @@ class LoginForm(forms.Form):
 
 
 class UserEditForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ('first_name', 'last_name', 'email')
+	email = forms.EmailField(label='Электронная почта',widget=forms.EmailInput)
+	class Meta:
+		model = User
+		fields = ('username','first_name', 'last_name', 'email')
 
 
 class ProfileEditForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['photo']
+	class Meta:
+		model = Profile
+		fields = ['photo']

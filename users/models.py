@@ -15,17 +15,12 @@ def user_image_dir(instance, filename):
 
 class Profile(models.Model):
 	user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-	photo = ResizedImageField(size=[400,400], upload_to=user_image_dir, blank=True, null=True, default='/static/images/av.jpg')
+	photo = ResizedImageField(size=[400,400], upload_to=user_image_dir, blank=True, null=True, default='default.png')
 	tarif_pro = models.BooleanField(default=False)
 	sum_task = models.IntegerField(default=False, null=True, editable=False)
 
 	def __str__(self):
 		return self.user.username
-
-	def get_image(self):
-		if not self.image:
-			return '/static/images/av.jpg'
-		return default_path or default_image_object
 			
 
 def create_profile(sender, instance, created, **kwargs):
