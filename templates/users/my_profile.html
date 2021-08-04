@@ -1,14 +1,15 @@
 {% extends "_base.html" %}
-
+{% load static %}
 {% block title %}
 {{request.user.first_name}}
 {% endblock title %}
+
 
 {% block content %}
 
 <div class="header-bar">
 
-		<a href="{% url 'task_list' %}">Назад</a>
+		<a href="{% url 'task_list' %}">&#8592;</a>
 	<div>
 		<h3>Мой профиль</h3>
 	</div>		
@@ -26,12 +27,16 @@
 
 		
 		<br><img src="{{request.user.profile.photo.url}}">
-		
-		
+			
 	</ul>
+	
+<div class="dropdown">
+	<a href="{% url 'edit' %}">Изменить профиль</a>
+</div>
+<div class="dropdown">
+	<a href="{% url 'tarif_pro' %}">Выбрать тариф PRO</a>
+</div>
 
-	<div>
-		<a href="{% url 'edit' %}">Редактировать</a>
-	</div>
+
 
 {% endblock %}

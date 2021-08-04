@@ -3,6 +3,6 @@
 {% block title %}Добро пожаловть!{% endblock %}
 
 {% block content %}
-    <h1>Добро пожаловть {{ new_user.first_name }}!</h1>
-    <p>Ваша учетная запись успешно создана. Вы можете  <a href="{% url 'login' %}">войти</a>.</p>
+    <h1>Добро пожаловть, {{ new_user.first_name }}!</h1>
+    <p>Ваша учетная запись успешно создана. Вы можете  <a href="{% url 'login' %}" style="color:royalblue ;">войти</a>.</p>
 {% endblock %}

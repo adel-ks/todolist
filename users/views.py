@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
@@ -50,23 +50,6 @@ def login(request):
 def logout(request):
 	auth_logout(request)
 	return redirect('login')
-
-# @login_required
-# def edit(request):
-# 		user_form = UserEditForm(instance=request.user)
-# 		profile_form = ProfileEditForm(instance=request.user.profile)
-# 		if request.method == 'POST':
-# 			user_form = UserEditForm(request.POST, instance = request.user)
-# 			profile_form = ProfileEditForm(request.POST, request.FILES)
-# 		if user_form.is_valid() and profile_form.is_valid():
-# 			user_form.save()
-# 			profile_form.save()
-# 			return redirect('my_profile')
-# 	else:
-# 		user_form = UserEditForm(instance=request.user)
-# 		profile_form = ProfileEditForm(instance=request.user.profile)
-# 		context = {'user_form': user_form, 'profile_form': profile_form}
-# 		return render(requ
 
 
 @login_required

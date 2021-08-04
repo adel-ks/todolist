@@ -3,6 +3,7 @@
 
 <div class="header-bar">
     <h1>Новая учетная запись</h1>
+    <a href="{% url 'index_page' %}">&#8592;</a>
 </div>
 
 <div class="card-body">
@@ -14,7 +15,7 @@
         <input style="margin-top: 10px;" class="button" type="submit" value="Создать">
     </form>
 
-<p>Уже зарегистрированы?<a href="{% url 'login' %}">Войти</a></p>
+<p>Уже зарегистрированы?<a href="{% url 'login' %}" style="color:royalblue ;">Войти</a></p>
 </div>
 
 {% endblock %}

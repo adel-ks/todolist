@@ -39,9 +39,6 @@ INSTALLED_APPS = [
 	'allauth.account',
 	'allauth.socialaccount',
 	'allauth.socialaccount.providers.google',
-	'allauth.socialaccount.providers.facebook',
-	
-
 ]
 
 MIDDLEWARE = [
@@ -176,26 +173,4 @@ SOCIALACCOUNT_PROVIDERS = {
 			'access_type': 'online',
 		}
 	},
-
-	 'facebook': {
-		'METHOD': 'oauth2',
-		'SDK_URL': '//connect.facebook.net/ru/sdk.js',
-		'SCOPE': ['email', 'public_profile'],
-		'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-		'INIT_PARAMS': {'cookie': True},
-		'FIELDS': [
-			'id',
-			'first_name',
-			'last_name',
-			'middle_name',
-			'name',
-			'name_format',
-			'picture',
-			'short_name'
-		],
-		'EXCHANGE_TOKEN': True,
-		'LOCALE_FUNC': 'path.to.callable',
-		'VERIFIED_EMAIL': False,
-		'VERSION': 'v11.0',
-	}
 }

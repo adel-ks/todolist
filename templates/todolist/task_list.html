@@ -5,7 +5,7 @@
 <div class="header-bar">
 	<div>
 		{% if request.user.profile.tarif_pro == True %}
-			<big> <i class="fas fa-crown" style="color:orange;"></i></big>
+		<big><i class="fas fa-crown"></i></big>
 		{% endif %}
 
 		<h2>{{request.user.first_name|title}}, ваш список задач:</h2>

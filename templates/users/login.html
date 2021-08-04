@@ -6,7 +6,7 @@
 <div class="header-bar">
 
     <h1>Войти</h1>
-    
+    <a href="{% url 'index_page' %}">&#8592;</a>
 </div>
 
 <div class="card-body">
@@ -16,13 +16,12 @@
     
         <input class="button" type="submit" value="Войти">
     </form>
-    <p>Забыли пароль? <a href="{% url 'password_reset' %}" >Смена пароля</a></p>
-    <p>Еще нет учетной записи?<a href="{% url 'register' %}">Регистрация</a></p>
 </div>
+<div class="card-body">
+    <p>Забыли пароль? <a href="{% url 'password_reset' %}" style="color:royalblue ;" >Смена пароля</a></p>
+    <p>Еще нет учетной записи?<a href="{% url 'register' %}" style="color:royalblue;">Регистрация</a></p>
 
-
-    <div class="card-body">
-        <a href="{% provider_login_url 'google' %}" class="google btn">Войти через Google</a>
-    </div>
+    <a href="{% provider_login_url 'google' %}" class="google btn">Войти через Google</a>
+</div>
       
 {% endblock %}
